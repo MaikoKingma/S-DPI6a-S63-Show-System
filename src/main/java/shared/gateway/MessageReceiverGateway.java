@@ -42,4 +42,8 @@ public class MessageReceiverGateway {
             e.printStackTrace();
         }
     }
+
+    public Destination getDestination() {
+        return destination;
+    }
 }
