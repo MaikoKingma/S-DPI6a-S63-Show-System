@@ -24,19 +24,16 @@ public class ShowBrokerAppGateway {
         sender = new MessageSenderGateway("showClientRequestQueue");
         receiver = new MessageReceiverGateway(name + "ReplyQueue");
 
-        receiver.setListener(new MessageListener() {
-            @Override
-            public void onMessage(Message message) {
-                if (message instanceof TextMessage)
-                {
-                    try {
-                        String body = ((TextMessage)message).getText();
-                        System.out.println(">>> CorrelationId: " + message.getJMSCorrelationID() + " Message: " + body);
-                        onShowReplyArrived(((TextMessage)message).getText(), message.getJMSCorrelationID());
-                    }
-                    catch (JMSException e) {
-                        e.printStackTrace();
-                    }
+        receiver.setListener(m -> {
+            if (m instanceof TextMessage)
+            {
+                try {
+                    String body = ((TextMessage)m).getText();
+                    System.out.println(">>> CorrelationId: " + m.getJMSCorrelationID() + " Message: " + body);
+                    onShowReplyArrived(((TextMessage)m).getText(), m.getJMSCorrelationID());
+                }
+                catch (JMSException e) {
+                    e.printStackTrace();
                 }
             }
         });
