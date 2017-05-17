@@ -1,5 +1,6 @@
 package applications.ShowClient;
 
+import com.google.gson.Gson;
 import com.sun.istack.NotNull;
 import shared.gateway.*;
 import shared.message.*;
@@ -59,7 +60,9 @@ public class ShowBrokerAppGateway {
         }
     }
 
-    public void onShowReplyArrived(String message, String correlationId) {
+    public void onShowReplyArrived(String json, String correlationId) {
+        ShowReply reply = new Gson().fromJson(json, ShowReply.class);
+        ShowRequest request = showRequests.get(correlationId);
         //ToDo
     }
 
