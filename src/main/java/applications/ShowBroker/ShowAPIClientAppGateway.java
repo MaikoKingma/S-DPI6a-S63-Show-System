@@ -1,18 +1,18 @@
 package applications.ShowBroker;
 
-import shared.gateway.*;
-import shared.message.ShowReply;
+import shared.gateway.MessageReceiverGateway;
+import shared.message.ShowAPIRequest;
 
 import javax.jms.*;
 
 /**
- * Created by Maiko on 12-5-2017.
+ * Created by Maiko on 17-5-2017.
  */
-public class ShowClientAppGateway {
+public class ShowAPIClientAppGateway {
     private MessageReceiverGateway receiver;
 
-    public ShowClientAppGateway() {
-        receiver = new MessageReceiverGateway("showClientRequestQueue");
+    public ShowAPIClientAppGateway() {
+        receiver = new MessageReceiverGateway("ShowAPIReplyQueue");
 
         receiver.setListener(m -> {
             if (m instanceof TextMessage)
@@ -29,11 +29,11 @@ public class ShowClientAppGateway {
         });
     }
 
-    public void onShowRequestArrived(String message, String correlationId) {
+    private void onShowRequestArrived(String message, String correlationId) {
         //ToDo
     }
 
-    public void sendShowReply(ShowReply reply) {
+    public void SendShowAPIRequest(ShowAPIRequest request) {
         //ToDo
     }
 }

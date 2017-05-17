@@ -1,18 +1,21 @@
-package applications.ShowBroker;
+package applications.ShowAPIClient;
 
 import shared.gateway.*;
-import shared.message.ShowReply;
+import shared.message.ShowAPIReply;
 
 import javax.jms.*;
 
 /**
- * Created by Maiko on 12-5-2017.
+ * Created by Maiko on 17-5-2017.
  */
-public class ShowClientAppGateway {
+public class ShowBrokerGateway {
+    private MessageSenderGateway sender;
     private MessageReceiverGateway receiver;
+    private String name;
 
-    public ShowClientAppGateway() {
-        receiver = new MessageReceiverGateway("showClientRequestQueue");
+    public ShowBrokerGateway(String name) {
+        this.name = name;
+        receiver = new MessageReceiverGateway(name + "RequestQueue");
 
         receiver.setListener(m -> {
             if (m instanceof TextMessage)
@@ -20,7 +23,7 @@ public class ShowClientAppGateway {
                 try {
                     String body = ((TextMessage)m).getText();
                     System.out.println(">>> CorrelationId: " + m.getJMSCorrelationID() + " Message: " + body);
-                    onShowRequestArrived(((TextMessage)m).getText(), m.getJMSCorrelationID());
+                    OnShowAPIRequestArrived(((TextMessage)m).getText(), m.getJMSCorrelationID());
                 }
                 catch (JMSException e) {
                     e.printStackTrace();
@@ -29,11 +32,11 @@ public class ShowClientAppGateway {
         });
     }
 
-    public void onShowRequestArrived(String message, String correlationId) {
+    public void SendShowAPIReply(ShowAPIReply reply) {
         //ToDo
     }
 
-    public void sendShowReply(ShowReply reply) {
+    public void OnShowAPIRequestArrived(String message, String correlationId) {
         //ToDo
     }
 }
