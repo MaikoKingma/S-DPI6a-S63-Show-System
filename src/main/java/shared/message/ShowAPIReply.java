@@ -49,13 +49,13 @@ public class ShowAPIReply implements IMessage {
     }
 
     @Override
-    public String getValue() {
+    public String getJson() {
         //ToDo
         throw new NotImplementedException();
     }
 
     @Override
-    public void fillFromValue(String value) {
+    public void fillFromJson(String json) {
         //ToDo
         throw new NotImplementedException();
     }

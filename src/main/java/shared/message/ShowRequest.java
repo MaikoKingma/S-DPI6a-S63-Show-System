@@ -37,7 +37,7 @@ public class ShowRequest implements IMessage {
     }
 
     @Override
-    public String getValue() {
+    public String getJson() {
         if (request.trim().length() <= 0) {
             throw new NullPointerException("request is not filled");
         }
@@ -46,7 +46,7 @@ public class ShowRequest implements IMessage {
     }
 
     @Override
-    public void fillFromValue(String value) {
+    public void fillFromJson(String json) {
         //ToDo
         throw new NotImplementedException();
     }

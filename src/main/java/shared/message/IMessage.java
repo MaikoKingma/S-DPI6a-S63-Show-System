@@ -4,7 +4,7 @@ package shared.message;
  * Created by Maiko on 23-4-2017.
  */
 public interface IMessage {
-    public String getValue();
+    public String getJson();
 
-    public void fillFromValue(String value);
+    public void fillFromJson(String json);
 }
