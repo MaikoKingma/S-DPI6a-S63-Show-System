@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Created by Maiko on 23-4-2017.
  */
-public class ShowReply extends Message {
+public class ShowReply extends MessageObject {
     private List<Show> shows;
 
     public ShowReply() { }

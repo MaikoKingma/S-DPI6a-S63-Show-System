@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Created by Maiko on 23-4-2017.
  */
-public class ShowAPIReply extends Message {
+public class ShowAPIReply extends MessageObject {
     private List<Show> shows;
     private boolean success;
 

@@ -1,6 +1,6 @@
 package shared.gateway;
 
-import shared.message.Message;
+import shared.message.MessageObject;
 import com.sun.istack.Nullable;
 
 import javax.jms.*;
@@ -38,7 +38,7 @@ public class MessageSenderGateway {
     }
 
     @Nullable
-    public javax.jms.Message createTextMessage(Message message, String corrolationId) {
+    public javax.jms.Message createTextMessage(MessageObject message, String corrolationId) {
         try {
             javax.jms.Message msg = session.createTextMessage(message.getJson());
             msg.setJMSCorrelationID(corrolationId);
@@ -52,7 +52,7 @@ public class MessageSenderGateway {
     public void send(javax.jms.Message msg) {
         try {
             producer.send(msg);
-            System.out.println("<<< CorrolationId: " + msg.getJMSCorrelationID() + " Message: " + ((TextMessage) msg).getText());
+            System.out.println("<<< CorrolationId: " + msg.getJMSCorrelationID() + " MessageObject: " + ((TextMessage) msg).getText());
         } catch (JMSException e) {
             e.printStackTrace();
         }

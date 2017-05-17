@@ -3,7 +3,7 @@ package shared.message;
 /**
  * Created by Maiko on 23-4-2017.
  */
-public class ShowRequest extends Message {
+public class ShowRequest extends MessageObject {
     private String request;
     private boolean isGuess = false;
 
