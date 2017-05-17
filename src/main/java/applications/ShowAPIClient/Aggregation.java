@@ -5,12 +5,12 @@ import shared.message.ShowAPIRequest;
 /**
  * Created by Maiko on 17-5-2017.
  */
-public class Request {
+public class Aggregation {
     private String corrolationId;
     private ShowAPIRequest showAPIRequest;
     private int aggregationId;
 
-    public Request(String corrolationId, ShowAPIRequest showAPIRequest, int aggregationId) {
+    public Aggregation(String corrolationId, ShowAPIRequest showAPIRequest, int aggregationId) {
         this.corrolationId = corrolationId;
         this.showAPIRequest = showAPIRequest;
         this.aggregationId = aggregationId;
