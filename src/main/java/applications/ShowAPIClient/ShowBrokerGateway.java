@@ -10,13 +10,13 @@ import java.util.*;
  * Created by Maiko on 17-5-2017.
  */
 public class ShowBrokerGateway {
-    private List<Request> requests;
+    private List<Aggregation> aggregations;
     private MessageSenderGateway sender;
     private MessageReceiverGateway receiver;
     private String name;
 
     public ShowBrokerGateway(String name) {
-        requests = new ArrayList<>();
+        aggregations = new ArrayList<>();
         this.name = name;
         receiver = new MessageReceiverGateway(name + "RequestQueue");
 
@@ -36,12 +36,12 @@ public class ShowBrokerGateway {
     }
 
     public void SendShowAPIReply(ShowAPIReply reply, ShowAPIRequest showAPIRequest) {
-        for (Request request : requests) {
-            if (request.getShowAPIRequest() == showAPIRequest)
+        for (Aggregation aggregation : aggregations) {
+            if (aggregation.getShowAPIRequest() == showAPIRequest)
             {
                 try {
-                    Message message = sender.createTextMessage(reply, request.getCorrolationId());
-                    message.setIntProperty("aggregationId", request.getAggregationId());
+                    Message message = sender.createTextMessage(reply, aggregation.getCorrolationId());
+                    message.setIntProperty("aggregationId", aggregation.getAggregationId());
                     sender.send(message);
                 } catch (JMSException e) {
                     e.printStackTrace();
@@ -59,7 +59,7 @@ public class ShowBrokerGateway {
 
             ShowAPIRequest bankInterestRequest = new ShowAPIRequest();
             //bankInterestRequest.fillFromCommaSeperatedValue(message.getText());
-            requests.add(new Request(message.getJMSCorrelationID(), bankInterestRequest, aggregationId));
+            aggregations.add(new Aggregation(message.getJMSCorrelationID(), bankInterestRequest, aggregationId));
             //ToDo
         } catch (JMSException e) {
             e.printStackTrace();
