@@ -1,14 +1,13 @@
 package shared.message;
 
 import shared.show.Show;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
 
 /**
  * Created by Maiko on 23-4-2017.
  */
-public class ShowAPIReply implements IMessage {
+public class ShowAPIReply extends Message {
     private List<Show> shows;
     private boolean success;
 
@@ -46,18 +45,6 @@ public class ShowAPIReply implements IMessage {
 
     public void setSuccess(boolean success) {
         this.success = success;
-    }
-
-    @Override
-    public String getJson() {
-        //ToDo
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public void fillFromJson(String json) {
-        //ToDo
-        throw new NotImplementedException();
     }
 
     @Override

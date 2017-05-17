@@ -1,11 +1,9 @@
 package shared.message;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 /**
  * Created by Maiko on 23-4-2017.
  */
-public class ShowAPIRequest implements IMessage {
+public class ShowAPIRequest extends Message {
     private String request;
     private boolean isGuess = false;
 
@@ -34,21 +32,6 @@ public class ShowAPIRequest implements IMessage {
 
     public void setGuess(boolean guess) {
         isGuess = guess;
-    }
-
-    @Override
-    public String getJson() {
-        if (request.trim().length() <= 0) {
-            throw new NullPointerException("request is not filled");
-        }
-        //ToDo
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public void fillFromJson(String json) {
-        //ToDo
-        throw new NotImplementedException();
     }
 
     @Override
