@@ -8,6 +8,9 @@ import java.util.Properties;
  * Created by Maiko on 23-4-2017.
  */
 public class MessageReceiverGateway {
+    private final String INITIAL_CONTEXT_FACTORY = "org.apache.activemq.jndi.ActiveMQInitialContextFactory";
+    private final String PROVIDER_URL = "tcp://localhost:61616";
+
     private Connection connection;
     private Session session;
     private Destination destination;
@@ -15,8 +18,8 @@ public class MessageReceiverGateway {
 
     public MessageReceiverGateway(String channelName) {
         Properties props = new Properties();
-        props.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
-        props.setProperty(Context.PROVIDER_URL, "tcp://localhost:61616");
+        props.setProperty(Context.INITIAL_CONTEXT_FACTORY, INITIAL_CONTEXT_FACTORY);
+        props.setProperty(Context.PROVIDER_URL, PROVIDER_URL);
         // connect to the Destination
         props.put(("queue." + channelName), channelName);
 
