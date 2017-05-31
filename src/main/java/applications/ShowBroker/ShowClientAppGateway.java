@@ -12,10 +12,12 @@ import java.util.*;
  * Created by Maiko on 12-5-2017.
  */
 public class ShowClientAppGateway {
+    private ShowBrokerManager manager;
     private MessageReceiverGateway receiver;
     private List<Request> showRequests;
 
-    public ShowClientAppGateway() {
+    public ShowClientAppGateway(ShowBrokerManager manager) {
+        this.manager = manager;
         showRequests = new ArrayList<>();
         receiver = new MessageReceiverGateway("showClientRequestQueue");
 
@@ -37,7 +39,7 @@ public class ShowClientAppGateway {
     public void onShowRequestArrived(String json, String correlationId, Destination replyTo) {
         ShowRequest request = new Gson().fromJson(json, ShowRequest.class);
         showRequests.add(new Request(correlationId, request, replyTo));
-        //ToDo
+        manager.processRequest(request, correlationId);
     }
 
     public void sendShowReply(ShowReply reply, String correlationId) {
