@@ -11,12 +11,14 @@ import java.util.*;
  * Created by Maiko on 17-5-2017.
  */
 public class ShowBrokerGateway {
+    private ShowAPIClientManager manager;
     private List<Aggregation> aggregations;
     private MessageSenderGateway sender;
     private MessageReceiverGateway receiver;
     private String name;
 
-    public ShowBrokerGateway(String name) {
+    public ShowBrokerGateway(String name, ShowAPIClientManager manager) {
+        this.manager = manager;
         aggregations = new ArrayList<>();
         this.name = name;
         receiver = new MessageReceiverGateway(name + "RequestQueue");
@@ -27,7 +29,7 @@ public class ShowBrokerGateway {
                 try {
                     String body = ((TextMessage)m).getText();
                     System.out.println(">>> CorrelationId: " + m.getJMSCorrelationID() + " Message: " + body);
-                    OnShowAPIRequestArrived(((TextMessage)m).getText(), m.getJMSCorrelationID(), m.getIntProperty("aggregationId"));
+                    onShowAPIRequestArrived(((TextMessage)m).getText(), m.getJMSCorrelationID(), m.getIntProperty("aggregationId"));
                 }
                 catch (JMSException e) {
                     e.printStackTrace();
@@ -36,9 +38,9 @@ public class ShowBrokerGateway {
         });
     }
 
-    public void SendShowAPIReply(ShowAPIReply reply, ShowAPIRequest showAPIRequest) {
+    private void sendShowAPIReply(ShowAPIReply reply, String correlationId) {
         for (Aggregation aggregation : aggregations) {
-            if (aggregation.getShowAPIRequest() == showAPIRequest)
+            if (aggregation.getCorrolationId().equals(correlationId))
             {
                 try {
                     Message message = sender.createTextMessage(reply, aggregation.getCorrolationId());
@@ -52,9 +54,9 @@ public class ShowBrokerGateway {
         }
     }
 
-    public void OnShowAPIRequestArrived(String json, String correlationId, int aggregationId) {
+    public void onShowAPIRequestArrived(String json, String correlationId, int aggregationId) {
         ShowAPIRequest showAPIRequest = new Gson().fromJson(json, ShowAPIRequest.class);
         aggregations.add(new Aggregation(correlationId, showAPIRequest, aggregationId));
-        //ToDo
+        sendShowAPIReply(manager.processRequest(showAPIRequest), correlationId);
     }
 }
