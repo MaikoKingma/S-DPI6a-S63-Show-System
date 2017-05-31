@@ -5,6 +5,9 @@ package applications.ShowAPIClient;
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
+        if(args[0] != null && !args[0].isEmpty()) {
+            new ShowAPIClientManager(args[0]);
+            System.out.println(args[0] + " Started");
+        }
     }
 }

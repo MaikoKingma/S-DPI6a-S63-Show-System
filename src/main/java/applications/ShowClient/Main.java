@@ -11,10 +11,14 @@ import javafx.stage.Stage;
  */
 
 public class Main extends Application {
+    private static String name;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/ShowClient.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ShowClient.fxml"));
+        Parent root = fxmlLoader.load();
+        ShowClientController controller = fxmlLoader.getController();
+        controller.setName(name);
         primaryStage.setTitle("ShowClient");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
@@ -22,6 +26,9 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        launch(args);
+        if(args[0] != null && !args[0].isEmpty()) {
+            name = args[0];
+            launch(args);
+        }
     }
 }

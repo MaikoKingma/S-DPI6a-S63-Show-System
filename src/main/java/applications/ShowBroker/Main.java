@@ -5,6 +5,7 @@ package applications.ShowBroker;
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
+        new ShowBrokerManager();
+        System.out.println("ShowBroker started");
     }
 }
