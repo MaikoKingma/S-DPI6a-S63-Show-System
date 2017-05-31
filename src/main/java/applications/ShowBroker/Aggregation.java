@@ -37,7 +37,7 @@ public class Aggregation {
         return replies.size();
     }
 
-    public void addBankInterestReply(ShowAPIReply reply) {
+    public void addShowAPIReply(ShowAPIReply reply) {
         replies.add(reply);
     }
 
@@ -50,6 +50,6 @@ public class Aggregation {
 
     public ShowAPIReply getBestReply() {
         //ToDo
-        return null;
+        return replies.get(0);
     }
 }
