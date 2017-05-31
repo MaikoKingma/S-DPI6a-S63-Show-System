@@ -7,7 +7,6 @@ import com.google.gson.Gson;
  */
 public abstract class MessageObject {
     public String getJson() {
-        Gson gson = new Gson();
-        return gson.toJson(this);
+        return new Gson().toJson(this);
     }
 }
