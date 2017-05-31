@@ -1,5 +1,6 @@
 package applications.ShowClient;
 
+import applications.ShowClient.DAO.ShowDAOCol;
 import shared.show.Show;
 
 import java.util.List;
@@ -10,9 +11,10 @@ import java.util.List;
 public class ShowClientManager {
 
     private ShowBrokerAppGateway gateway;
-    //ToDo Add DAOCol
+    private ShowDAOCol showDAO;
 
     public ShowClientManager(String clientname) {
+        showDAO = new ShowDAOCol();
         gateway = new ShowBrokerAppGateway(this, clientname);
     }
 
@@ -22,7 +24,9 @@ public class ShowClientManager {
     }
 
     private void saveShows(List<Show> shows) {
-        //ToDo
+        for (Show s : shows) {
+            showDAO.create(s);
+        }
     }
 
     public void searchShow(String request) {
