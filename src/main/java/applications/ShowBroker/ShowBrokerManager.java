@@ -11,7 +11,7 @@ public class ShowBrokerManager {
 
     public ShowBrokerManager() {
         showClientGateway = new ShowClientAppGateway(this);
-        showAPIClientGateway = new ShowAPIClientAppGateway();
+        showAPIClientGateway = new ShowAPIClientAppGateway(this);
     }
 
     public void processRequest(ShowRequest request, String correlationId) {
@@ -21,6 +21,6 @@ public class ShowBrokerManager {
 
     public void processReply(ShowAPIReply reply, String correlationId) {
         showClientGateway.sendShowReply(new ShowReply(reply.getShows()), correlationId);
-        //ToDo
+        //ToDo Check
     }
 }
