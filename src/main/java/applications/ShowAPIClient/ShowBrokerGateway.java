@@ -1,5 +1,6 @@
 package applications.ShowAPIClient;
 
+import com.google.gson.Gson;
 import shared.gateway.*;
 import shared.message.*;
 
@@ -26,7 +27,7 @@ public class ShowBrokerGateway {
                 try {
                     String body = ((TextMessage)m).getText();
                     System.out.println(">>> CorrelationId: " + m.getJMSCorrelationID() + " Message: " + body);
-                    OnShowAPIRequestArrived((TextMessage)m);
+                    OnShowAPIRequestArrived(((TextMessage)m).getText(), m.getJMSCorrelationID(), m.getIntProperty("aggregationId"));
                 }
                 catch (JMSException e) {
                     e.printStackTrace();
@@ -51,18 +52,9 @@ public class ShowBrokerGateway {
         }
     }
 
-    public void OnShowAPIRequestArrived(TextMessage message) {
-        try {
-            Integer aggregationId = message.getIntProperty("aggregationId");
-            if (aggregationId == null)
-                return;
-
-            ShowAPIRequest bankInterestRequest = new ShowAPIRequest();
-            //bankInterestRequest.fillFromCommaSeperatedValue(message.getText());
-            aggregations.add(new Aggregation(message.getJMSCorrelationID(), bankInterestRequest, aggregationId));
-            //ToDo
-        } catch (JMSException e) {
-            e.printStackTrace();
-        }
+    public void OnShowAPIRequestArrived(String json, String correlationId, int aggregationId) {
+        ShowAPIRequest showAPIRequest = new Gson().fromJson(json, ShowAPIRequest.class);
+        aggregations.add(new Aggregation(correlationId, showAPIRequest, aggregationId));
+        //ToDo
     }
 }
