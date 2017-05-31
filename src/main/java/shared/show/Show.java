@@ -6,6 +6,8 @@ import java.util.*;
  * Created by Maiko on 23-4-2017.
  */
 public class Show {
+    private Integer clientId;
+
     private Calendar requestDate;
     private Status status;
     private Episode countdown;
@@ -231,5 +233,13 @@ public class Show {
             pictures = new ArrayList<>();
         }
         pictures.add(picturePath);
+    }
+
+    public Integer getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
     }
 }
