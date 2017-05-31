@@ -12,6 +12,7 @@ import java.util.*;
  * Created by Maiko on 23-4-2017.
  */
 public class ShowBrokerAppGateway {
+    private ShowClientManager manager;
     private MessageSenderGateway sender;
     private MessageReceiverGateway receiver;
     private Map<String, ShowRequest> showRequests;
@@ -20,7 +21,10 @@ public class ShowBrokerAppGateway {
     @NotNull
     private int Id = 0;
 
-    public ShowBrokerAppGateway() {
+    public ShowBrokerAppGateway(ShowClientManager manager, String clientName) {
+        if(clientName != null && !clientName.trim().isEmpty())
+            this.name = clientName;
+        this.manager = manager;
         showRequests = new HashMap<>();
         sender = new MessageSenderGateway("showClientRequestQueue");
         receiver = new MessageReceiverGateway(name + "ReplyQueue");
@@ -63,7 +67,7 @@ public class ShowBrokerAppGateway {
     public void onShowReplyArrived(String json, String correlationId) {
         ShowReply reply = new Gson().fromJson(json, ShowReply.class);
         ShowRequest request = showRequests.get(correlationId);
-        //ToDo
+        manager.ShowsArrived(reply.getShows());
     }
 
     @NotNull
