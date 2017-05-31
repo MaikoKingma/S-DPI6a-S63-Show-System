@@ -8,7 +8,7 @@ import java.util.*;
  * Created by Maiko on 23-4-2017.
  */
 public class ShowAPIReply extends MessageObject {
-    private List<Show> shows;
+    private ArrayList<Show> shows;
     private boolean success;
 
     public ShowAPIReply() {
@@ -24,7 +24,7 @@ public class ShowAPIReply extends MessageObject {
         }
     }
 
-    public List<Show> getShows() {
+    public ArrayList<Show> getShows() {
         return shows;
     }
 

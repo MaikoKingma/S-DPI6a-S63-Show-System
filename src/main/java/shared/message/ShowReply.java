@@ -8,7 +8,7 @@ import java.util.*;
  * Created by Maiko on 23-4-2017.
  */
 public class ShowReply extends MessageObject {
-    private List<Show> shows;
+    private ArrayList<Show> shows;
 
     public ShowReply() { }
 
@@ -16,7 +16,7 @@ public class ShowReply extends MessageObject {
         this.shows = shows;
     }
 
-    public List<Show> getShows() {
+    public ArrayList<Show> getShows() {
         return shows;
     }
 
