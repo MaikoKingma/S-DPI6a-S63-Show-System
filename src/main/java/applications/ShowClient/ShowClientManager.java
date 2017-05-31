@@ -16,7 +16,7 @@ public class ShowClientManager {
         gateway = new ShowBrokerAppGateway(this, clientname);
     }
 
-    public void ShowsArrived(List<Show> shows) {
+    public void showsArrived(List<Show> shows) {
         saveShows(shows);
         //ToDo Send to UI
     }
@@ -25,11 +25,11 @@ public class ShowClientManager {
         //ToDo
     }
 
-    public void SearchShow(String request) {
+    public void searchShow(String request) {
         gateway.searchShow(request);
     }
 
-    public void RequestShow(String request) {
+    public void requestShow(String request) {
         gateway.requestShow(request);
     }
 }

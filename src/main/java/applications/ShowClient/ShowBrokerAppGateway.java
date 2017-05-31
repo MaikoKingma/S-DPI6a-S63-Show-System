@@ -67,7 +67,7 @@ public class ShowBrokerAppGateway {
     public void onShowReplyArrived(String json, String correlationId) {
         ShowReply reply = new Gson().fromJson(json, ShowReply.class);
         ShowRequest request = showRequests.get(correlationId);
-        manager.ShowsArrived(reply.getShows());
+        manager.showsArrived(reply.getShows());
     }
 
     @NotNull
