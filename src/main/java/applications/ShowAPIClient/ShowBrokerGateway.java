@@ -21,8 +21,8 @@ public class ShowBrokerGateway {
         this.manager = manager;
         aggregations = new ArrayList<>();
         this.name = name;
+        sender = new MessageSenderGateway("ShowAPIReplyQueue");
         receiver = new MessageReceiverGateway(name + "RequestQueue");
-
         receiver.setListener(m -> {
             if (m instanceof TextMessage)
             {
