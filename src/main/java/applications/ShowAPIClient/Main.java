@@ -6,8 +6,9 @@ package applications.ShowAPIClient;
 public class Main {
     public static void main(String[] args) {
         if(args[0] != null && !args[0].isEmpty()) {
-            new ShowAPIClientManager(args[0]);
-            System.out.println(args[0] + " Started");
+            readers reader = readers.values()[Integer.parseInt(args[0])];
+            new ShowAPIClientManager(reader);
+            System.out.println(reader + " Started");
         }
     }
 }

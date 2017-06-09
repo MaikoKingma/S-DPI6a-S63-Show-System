@@ -13,10 +13,9 @@ public class ShowAPIClientManager {
     private ShowBrokerGateway gateway;
     private IAPIReader currentReader;
 
-    public ShowAPIClientManager(String name, readers reader) {
-        gateway = new ShowBrokerGateway(name, this);
+    public ShowAPIClientManager(readers reader) {
         switch (reader) {
-            case faker:
+            case Faker:
                 currentReader = new FakerAPIReader();
                 break;
             case TVMaze:
@@ -25,6 +24,7 @@ public class ShowAPIClientManager {
                 //ToDo
                 throw new NotImplementedException();
         }
+        gateway = new ShowBrokerGateway(reader.toString(), this);
     }
 
     public ShowAPIReply processRequest(ShowAPIRequest request) {
@@ -35,7 +35,7 @@ public class ShowAPIClientManager {
 }
 
 enum readers {
-    faker,
+    Faker,
     TheTVDB,
     EpisoDate,
     TVMaze
