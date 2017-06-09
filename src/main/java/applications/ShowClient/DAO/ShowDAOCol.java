@@ -40,6 +40,7 @@ public class ShowDAOCol implements IShowDAO{
     @Override
     public void remove(Show show) {
         shows.remove(show);
+        System.out.println("Show removed: " + show.getClientId() + " - " + show.getName());
     }
 
     @Override
@@ -48,7 +49,7 @@ public class ShowDAOCol implements IShowDAO{
             return null;
         }
         for (Show s : shows){
-            if(s.getClientId() == (Integer) id){
+            if(s.getClientId() == id){
                 return s;
             }
         }
