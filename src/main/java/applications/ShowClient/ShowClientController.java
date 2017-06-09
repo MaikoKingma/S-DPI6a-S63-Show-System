@@ -16,6 +16,7 @@ public class ShowClientController {
     public Button btnFind;
     public TextField tbSearch;
     public Button btnGuess;
+    public Label lblNoResults;
     public TreeView tvResults;
     public Button btnAdd;
     //Right Pane
@@ -33,6 +34,8 @@ public class ShowClientController {
     }
 
     public void btnFind_OnAction(ActionEvent actionEvent) {
+        clearLeftPanel();
+
         if (!tbSearch_isEmpty())
             return;
 
@@ -41,6 +44,7 @@ public class ShowClientController {
     }
 
     public void btnGuess_OnAction(ActionEvent actionEvent) {
+        clearLeftPanel();
         if (!tbSearch_isEmpty())
             return;
 
@@ -65,6 +69,8 @@ public class ShowClientController {
     private TreeItem<IShow> createTreeViewRoot(List<Show> shows) {
         TreeItem<IShow> rootItem = new TreeItem<>();
         rootItem.setExpanded(true);
+
+
         for (Show s : shows) {
             TreeItem<IShow> newItem = new TreeItem<> (s);
             for (Episode e : s.getEpisodes()) {
@@ -76,6 +82,15 @@ public class ShowClientController {
     }
 
     void showResults(List<Show> shows) {
-        tvResults.setRoot(createTreeViewRoot(shows));
+        if (shows == null || shows.size() <= 0) {
+            lblNoResults.setVisible(true);
+        }
+        else
+            tvResults.setRoot(createTreeViewRoot(shows));
+    }
+
+    private void clearLeftPanel() {
+        tvResults.setRoot(new TreeItem());
+        lblNoResults.setVisible(false);
     }
 }
