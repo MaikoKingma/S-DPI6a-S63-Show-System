@@ -33,16 +33,18 @@ public class ShowClientController {
     }
 
     public void btnFind_OnAction(ActionEvent actionEvent) {
-        if (tbSearch_isEmpty())
+        if (!tbSearch_isEmpty())
             return;
 
+        System.out.println("User requested show: " + tbSearch.getText());
         manager.requestShow(tbSearch.getText());
     }
 
     public void btnGuess_OnAction(ActionEvent actionEvent) {
-        if (tbSearch_isEmpty())
+        if (!tbSearch_isEmpty())
             return;
 
+        System.out.println("User guesses show: " + tbSearch.getText());
         manager.searchShow(tbSearch.getText());
     }
 
