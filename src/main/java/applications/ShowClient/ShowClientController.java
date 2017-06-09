@@ -57,6 +57,7 @@ public class ShowClientController {
 
     public void btnAdd_OnAction(ActionEvent actionEvent) {
         Object selectedItem = tvResults.getSelectionModel().getSelectedItem();
+        //If The user Selected nothing or a episode nothing happens.
         if (selectedItem != null && ((TreeItem)selectedItem).getValue() instanceof Show) {
             manager.addShow((Show)((TreeItem)selectedItem).getValue());
             tvShows.setRoot(createTreeViewRoot(manager.getShows()));
@@ -65,16 +66,19 @@ public class ShowClientController {
 
     public void btnRemove_OnAction(ActionEvent actionEvent) {
         Object selectedItem = tvShows.getSelectionModel().getSelectedItem();
+        //If The user Selected nothing or a episode nothing happens.
         if (selectedItem != null && ((TreeItem)selectedItem).getValue() instanceof Show) {
             manager.removeShow((Show)((TreeItem)selectedItem).getValue());
             tvShows.setRoot(createTreeViewRoot(manager.getShows()));
         }
     }
 
+    /**
+     * Creates a TreeItem than can be used as a rootItem for displaying a show list.
+     */
     private TreeItem<IShow> createTreeViewRoot(List<Show> shows) {
         TreeItem<IShow> rootItem = new TreeItem<>();
         rootItem.setExpanded(true);
-
 
         for (Show s : shows) {
             TreeItem<IShow> newItem = new TreeItem<> (s);

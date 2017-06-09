@@ -34,6 +34,9 @@ public class ShowAPIClientManager {
     }
 }
 
+/**
+ * List of readers this client can implement
+ */
 enum readers {
     Faker,
     TheTVDB,

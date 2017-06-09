@@ -45,6 +45,7 @@ public class ShowClientAppGateway {
     public void sendShowReply(ShowReply reply, String correlationId) {
         for (Request request : showRequests) {
             if (request.getCorrolationId().equals(correlationId)) {
+                //Return the message using the given ReplyTo Queue
                 MessageSenderGateway sender = new MessageSenderGateway(request.getReplyTo());
                 Message message = sender.createTextMessage(reply, correlationId);
                 sender.send(message);

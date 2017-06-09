@@ -4,6 +4,7 @@ import shared.message.ShowAPIRequest;
 
 /**
  * Created by Maiko on 17-5-2017.
+ * This Class keeps track of the send and received message using the scatter-gather patern.
  */
 public class Aggregation {
     private String corrolationId;

@@ -4,6 +4,7 @@ import shared.gateway.MessageSenderGateway;
 
 /**
  * Created by Maiko on 31-5-2017.
+ * This class stores the rule which define which APIClients can process the different message types.
  */
 public class Rule {
     private String apiName;

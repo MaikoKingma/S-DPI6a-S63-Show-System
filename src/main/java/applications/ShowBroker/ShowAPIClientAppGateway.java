@@ -17,7 +17,7 @@ public class ShowAPIClientAppGateway {
     private List<Aggregation> aggregations;
     @NotNull
     private int id = 0;
-    private List<Rule> bankRules = new ArrayList<Rule>() {{
+    private List<Rule> rules = new ArrayList<Rule>() {{
         add(new Rule("Faker", false));
     }};
 
@@ -25,7 +25,7 @@ public class ShowAPIClientAppGateway {
         aggregations = new ArrayList<>();
         this.manager = manager;
         MessageReceiverGateway receiver = new MessageReceiverGateway("ShowAPIReplyQueue");
-        for (Rule rule : bankRules) {
+        for (Rule rule : rules) {
             rule.setSender(new MessageSenderGateway(rule.getApiName() + "RequestQueue"));
         }
 
@@ -47,6 +47,7 @@ public class ShowAPIClientAppGateway {
     private void onShowAPIReplyArrived(String json, String correlationId, int aggregationId) {
         ShowAPIReply reply = new Gson().fromJson(json, ShowAPIReply.class);
         Aggregation foundAggregation = null;
+        //Add reply to the correct aggregation.
         for (Aggregation aggregation : aggregations) {
             if (aggregation.getId() == aggregationId) {
                 foundAggregation = aggregation;
@@ -55,6 +56,7 @@ public class ShowAPIClientAppGateway {
         }
         if (foundAggregation != null) {
             foundAggregation.addShowAPIReply(reply);
+            //If all expected replies have arrived the best answer is returned.
             if (foundAggregation.repliesReceived()){
                 manager.processReply(foundAggregation.getBestReply(), correlationId);
             }
@@ -65,7 +67,8 @@ public class ShowAPIClientAppGateway {
         int aggregationId = getAggregationID();
         int expectedReplies = 0;
         List<Rule> rulesToSend = new ArrayList<>();
-        for (Rule rule : bankRules) {
+        //Only send requests to APIClients that can process the request.
+        for (Rule rule : rules) {
             if (!request.isGuess() || rule.hasSearch()) {
                 expectedReplies++;
                 rulesToSend.add(rule);
