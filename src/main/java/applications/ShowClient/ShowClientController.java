@@ -1,4 +1,5 @@
 package applications.ShowClient;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import shared.show.*;
@@ -51,9 +52,7 @@ public class ShowClientController {
     }
 
     private boolean tbSearch_isEmpty() {
-        if (tbSearch.getText() == null || tbSearch.getText().isEmpty())
-            return false;
-        return true;
+        return !(tbSearch.getText() == null || tbSearch.getText().isEmpty());
     }
 
     public void btnAdd_OnAction(ActionEvent actionEvent) {
@@ -74,6 +73,7 @@ public class ShowClientController {
             for (Episode e : s.getEpisodes()) {
                 newItem.getChildren().add(new TreeItem<>(e));
             }
+
             rootItem.getChildren().add(newItem);
         }
         return rootItem;
@@ -81,10 +81,10 @@ public class ShowClientController {
 
     void showResults(List<Show> shows) {
         if (shows == null || shows.size() <= 0) {
-            lblNoResults.setVisible(true);
+            Platform.runLater(() -> lblNoResults.setVisible(true));
         }
         else
-            tvResults.setRoot(createTreeViewRoot(shows));
+            Platform.runLater(() -> tvResults.setRoot(createTreeViewRoot(shows)));
     }
 
     private void clearLeftPanel() {

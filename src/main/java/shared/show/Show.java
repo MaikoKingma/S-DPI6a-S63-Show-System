@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Created by Maiko on 23-4-2017.
  */
-public class Show implements IShow {
+public class Show implements IShow{
     private Integer clientId;
 
     private Calendar requestDate;
@@ -241,5 +241,10 @@ public class Show implements IShow {
 
     public void setClientId(Integer clientId) {
         this.clientId = clientId;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

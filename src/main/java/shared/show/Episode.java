@@ -1,5 +1,6 @@
 package shared.show;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -57,6 +58,7 @@ public class Episode implements IShow {
         return "S" + seasonNr +
                 "E" + episodeNr +
                 " " + name +
-                " " + airDate;
+                " " + new SimpleDateFormat("dd-MM-yyyy hh:mm").format(airDate.getTime()
+        );
     }
 }
