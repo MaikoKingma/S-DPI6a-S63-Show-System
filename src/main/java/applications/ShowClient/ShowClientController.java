@@ -56,11 +56,19 @@ public class ShowClientController {
     }
 
     public void btnAdd_OnAction(ActionEvent actionEvent) {
-        //ToDo
+        Object selectedItem = tvResults.getSelectionModel().getSelectedItem();
+        if (selectedItem != null && ((TreeItem)selectedItem).getValue() instanceof Show) {
+            manager.addShow((Show)((TreeItem)selectedItem).getValue());
+            tvShows.setRoot(createTreeViewRoot(manager.getShows()));
+        }
     }
 
     public void btnRemove_OnAction(ActionEvent actionEvent) {
-        //ToDo
+        Object selectedItem = tvShows.getSelectionModel().getSelectedItem();
+        if (selectedItem != null && ((TreeItem)selectedItem).getValue() instanceof Show) {
+            manager.removeShow((Show)((TreeItem)selectedItem).getValue());
+            tvShows.setRoot(createTreeViewRoot(manager.getShows()));
+        }
     }
 
     private TreeItem<IShow> createTreeViewRoot(List<Show> shows) {
