@@ -14,18 +14,18 @@ import java.util.*;
  */
 public class ShowAPIClientAppGateway {
     private ShowBrokerManager manager;
-    private MessageReceiverGateway receiver;
     private List<Aggregation> aggregations;
     @NotNull
     private int id = 0;
-    private List<Rule> rules = new ArrayList<Rule>() {{
+    private List<Rule> bankRules = new ArrayList<Rule>() {{
         add(new Rule("Faker", false));
     }};
 
     public ShowAPIClientAppGateway(ShowBrokerManager manager) {
         aggregations = new ArrayList<>();
         this.manager = manager;
-        receiver = new MessageReceiverGateway("ShowAPIReplyQueue");for (Rule rule : rules) {
+        MessageReceiverGateway receiver = new MessageReceiverGateway("ShowAPIReplyQueue");
+        for (Rule rule : bankRules) {
             rule.setSender(new MessageSenderGateway(rule.getApiName() + "RequestQueue"));
         }
 
@@ -65,8 +65,8 @@ public class ShowAPIClientAppGateway {
         int aggregationId = getAggregationID();
         int expectedReplies = 0;
         List<Rule> rulesToSend = new ArrayList<>();
-        for (Rule rule : rules) {
-            if ((request.isGuess() && rule.hasSearch()) || !request.isGuess()) {
+        for (Rule rule : bankRules) {
+            if (!request.isGuess() || rule.hasSearch()) {
                 expectedReplies++;
                 rulesToSend.add(rule);
             }

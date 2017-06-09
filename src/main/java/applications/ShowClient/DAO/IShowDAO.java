@@ -2,6 +2,7 @@ package applications.ShowClient.DAO;
 
 import shared.show.Show;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public interface IShowDAO {
 
     Show findById(Object id);
 
-    List<Show> getAll();
+    ArrayList getAll();
 
     List<Show> search(String name);
 }

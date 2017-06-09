@@ -4,6 +4,7 @@ import shared.show.Show;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -11,7 +12,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class ShowDAOCol implements IShowDAO{
 
-    CopyOnWriteArrayList<Show> shows = new CopyOnWriteArrayList<Show>();
+    private CopyOnWriteArrayList<Show> shows = new CopyOnWriteArrayList<>();
     int Id = 0;
 
     @Override
@@ -29,7 +30,7 @@ public class ShowDAOCol implements IShowDAO{
 
         for (int i = 0; i < shows.size(); i++)
         {
-            if (shows.get(i).getClientId() == show.getClientId())
+            if (Objects.equals(shows.get(i).getClientId(), show.getClientId()))
             {
                 shows.set(i, show);
                 break;
@@ -57,11 +58,11 @@ public class ShowDAOCol implements IShowDAO{
     }
 
     @Override
-    public List<Show> getAll() { return new ArrayList(shows); }
+    public ArrayList<Show> getAll() { return new ArrayList<>(shows); }
 
     @Override
     public List<Show> search(String query) {
-        ArrayList<Show> array = new ArrayList();
+        ArrayList<Show> array = new ArrayList<>();
         for (Show show : shows) {
             if (show.getName().toUpperCase().contains(query.toUpperCase()) || show.getDescription().toUpperCase().contains(query.toUpperCase())) {
                 array.add(show);

@@ -15,12 +15,10 @@ public class ShowBrokerGateway {
     private List<Aggregation> aggregations;
     private MessageSenderGateway sender;
     private MessageReceiverGateway receiver;
-    private String name;
 
     public ShowBrokerGateway(String name, ShowAPIClientManager manager) {
         this.manager = manager;
         aggregations = new ArrayList<>();
-        this.name = name;
         sender = new MessageSenderGateway("ShowAPIReplyQueue");
         receiver = new MessageReceiverGateway(name + "RequestQueue");
         receiver.setListener(m -> {
