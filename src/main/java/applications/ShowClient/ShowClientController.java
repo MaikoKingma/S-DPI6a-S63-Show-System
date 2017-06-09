@@ -1,9 +1,7 @@
 package applications.ShowClient;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
-import shared.show.Episode;
-import shared.show.IShow;
-import shared.show.Show;
+import shared.show.*;
 
 import java.util.List;
 
