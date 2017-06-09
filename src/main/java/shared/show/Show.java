@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Created by Maiko on 23-4-2017.
  */
-public class Show {
+public class Show implements IShow {
     private Integer clientId;
 
     private Calendar requestDate;

@@ -5,7 +5,7 @@ import java.util.Calendar;
 /**
  * Created by Maiko on 23-4-2017.
  */
-public class Episode {
+public class Episode implements IShow {
     private int seasonNr;
     private int episodeNr;
     private String name;

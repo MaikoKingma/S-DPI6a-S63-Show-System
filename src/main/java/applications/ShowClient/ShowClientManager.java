@@ -12,21 +12,28 @@ public class ShowClientManager {
 
     private ShowBrokerAppGateway gateway;
     private ShowDAOCol showDAO;
+    private ShowClientController controller;
 
-    public ShowClientManager(String clientname) {
+    public ShowClientManager(String clientname, ShowClientController controller) {
         showDAO = new ShowDAOCol();
         gateway = new ShowBrokerAppGateway(this, clientname);
+        this.controller = controller;
     }
 
     public void showsArrived(List<Show> shows) {
-        saveShows(shows);
-        //ToDo Send to UI
+        controller.showResults(shows);
     }
 
-    private void saveShows(List<Show> shows) {
-        for (Show s : shows) {
-            showDAO.create(s);
-        }
+    public void addShow(Show show) {
+        showDAO.create(show);
+    }
+
+    public void removeShow(Show show) {
+        showDAO.remove(show);
+    }
+
+    public List<Show> getShows() {
+        return showDAO.getAll();
     }
 
     public void searchShow(String request) {
