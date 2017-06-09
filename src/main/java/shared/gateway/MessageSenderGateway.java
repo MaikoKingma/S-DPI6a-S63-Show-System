@@ -72,7 +72,7 @@ public class MessageSenderGateway {
     public void send(Message msg) {
         try {
             producer.send(msg);
-            System.out.println("<<< CorrolationId: " + msg.getJMSCorrelationID() + " MessageObject: " + ((TextMessage) msg).getText());
+            System.out.println("<<< CorrolationId: " + msg.getJMSCorrelationID() + " Message: " + ((TextMessage) msg).getText());
         } catch (JMSException e) {
             e.printStackTrace();
         }
