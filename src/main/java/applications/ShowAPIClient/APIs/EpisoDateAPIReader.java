@@ -27,6 +27,7 @@ public class EpisoDateAPIReader implements IAPIReader {
         return null;
     }
 
+    /**
     private String getRequest(String request) {
         System.out.println(request);
         String result = new String();
