@@ -1,9 +1,9 @@
 package applications.ShowBroker;
 
-import shared.message.ShowAPIReply;
+import shared.message.*;
+import shared.show.Show;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Maiko on 17-5-2017.
@@ -49,8 +49,13 @@ public class Aggregation {
         return false;
     }
 
-    public ShowAPIReply getBestReply() {
-        //ToDo
-        return replies.get(0);
+    public ShowReply getBestReply() {
+        ShowReply showReply = new ShowReply();
+        for (ShowAPIReply reply : replies) {
+            for (Show show : reply.getShows()) {
+                showReply.addShow(show);
+            }
+        }
+        return showReply;
     }
 }

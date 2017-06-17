@@ -18,7 +18,7 @@ public class ShowBrokerManager {
         showAPIClientGateway.SendShowAPIRequest(new ShowAPIRequest(request.getRequest(), request.isGuess()), correlationId);
     }
 
-    public void processReply(ShowAPIReply reply, String correlationId) {
-        showClientGateway.sendShowReply(new ShowReply(reply.getShows()), correlationId);
+    public void processReply(ShowReply reply, String correlationId) {
+        showClientGateway.sendShowReply(reply, correlationId);
     }
 }
