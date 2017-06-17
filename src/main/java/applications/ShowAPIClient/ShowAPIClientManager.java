@@ -1,5 +1,6 @@
 package applications.ShowAPIClient;
 
+import applications.ShowAPIClient.APIs.EpisoDateAPIReader;
 import applications.ShowAPIClient.APIs.FakerAPIReader;
 import applications.ShowAPIClient.APIs.IAPIReader;
 import shared.message.ShowAPIReply;
@@ -18,9 +19,11 @@ public class ShowAPIClientManager {
             case Faker:
                 currentReader = new FakerAPIReader();
                 break;
+            case EpisoDate:
+                currentReader = new EpisoDateAPIReader();
+                break;
             case TVMaze:
             case TheTVDB:
-            case EpisoDate:
                 //ToDo
                 throw new NotImplementedException();
         }

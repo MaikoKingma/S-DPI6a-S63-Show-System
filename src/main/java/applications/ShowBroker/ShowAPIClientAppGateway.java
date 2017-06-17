@@ -19,6 +19,7 @@ public class ShowAPIClientAppGateway {
     private int id = 0;
     private List<Rule> rules = new ArrayList<Rule>() {{
         add(new Rule("Faker", false));
+        add(new Rule("EpisoDate", false));
     }};
 
     public ShowAPIClientAppGateway(ShowBrokerManager manager) {
