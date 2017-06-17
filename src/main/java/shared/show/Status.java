@@ -6,6 +6,6 @@ package shared.show;
 public enum Status {
     RUNNING,
     IN_DEVELOPMENT,
-    ENDED,
+    CANCELED_ENDED,
     TO_BE_DETERMINED
 }
