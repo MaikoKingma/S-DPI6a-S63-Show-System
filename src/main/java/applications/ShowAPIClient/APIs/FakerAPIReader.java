@@ -31,7 +31,7 @@ public class FakerAPIReader implements IAPIReader {
         return new ArrayList<Show>() {{
             add(new Show(
                     now,
-                    Status.RUNNING,
+                    Status.CANCELED_ENDED,
                     episodes.get(0),
                     episodes,
                     request + " (Fake)",
