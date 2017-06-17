@@ -132,7 +132,7 @@ public class EpisoDateAPIReader implements IAPIReader {
         Episode episode = new Episode();
         episode.setSeasonNr(Integer.parseInt(jEpisode.get("season").toString()));
         episode.setEpisodeNr(Integer.parseInt(jEpisode.get("episode").toString()));
-        episode.setName(jEpisode.get("name").toString());
+        episode.setName(jEpisode.get("name").toString().replace("\"", ""));
         try {
             Calendar tempCal = Calendar.getInstance();
             tempCal.setTime(sdfEpisode.parse(jEpisode.get("air_date").toString().replace("\"", "")));
