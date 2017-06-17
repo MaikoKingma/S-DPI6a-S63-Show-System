@@ -16,12 +16,11 @@ import java.util.*;
  */
 public class EpisoDateAPIReader implements IAPIReader {
 
-    public final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    public final SimpleDateFormat sdfShow = new SimpleDateFormat("yyyy-MM-dd");
+    public final SimpleDateFormat sdfEpisode = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     public ArrayList<Show> getShow(String request) {
-        getRequest("https://www.episodate.com/api/show-details?q=" + request);
-        //ToDo
-        return null;
+        return jsonToShows(getRequest("https://www.episodate.com/api/show-details?q=" + request));
     }
 
     public ArrayList<Show> searchShow(String request) {
@@ -76,7 +75,7 @@ public class EpisoDateAPIReader implements IAPIReader {
 
             Show show = new Show();
             show.setRequestDate(Calendar.getInstance());
-            show.setStatus(Status.valueOf(jShow.get("status").toString()));
+            show.setStatus(Status.valueOf(jShow.get("status").toString().replace("\"", "").toUpperCase()));
             show.setCountdown(jsonToEpisode(jShow.get("countdown").getAsJsonObject()));
 
             ArrayList<Episode> episodes = new ArrayList<>();
@@ -88,37 +87,37 @@ public class EpisoDateAPIReader implements IAPIReader {
             }
 
             show.setEpisodes(episodes);
-            show.setName(jShow.get("name").toString());
-            show.setSource(jShow.get("url").toString());
-            show.setDescription(jShow.get("description").toString());
-            show.setDescriptionSource(jShow.get("description_source").toString());
+            show.setName(jShow.get("name").toString().replace("\"", ""));
+            show.setSource(jShow.get("url").toString().replace("\"", ""));
+            show.setDescription(jShow.get("description").toString().replace("\"", ""));
+            show.setDescriptionSource(jShow.get("description_source").toString().replace("\"", ""));
 
             //Parse start and endDate to calender objects
             try {
                 Calendar tempCal = Calendar.getInstance();
-                tempCal.setTime(sdf.parse(jShow.get("start_date").toString()));
+                tempCal.setTime(sdfShow.parse(jShow.get("start_date").toString().replace("\"", "")));
                 show.setStartDate(tempCal);
 
                 //End date can be null if the show hasn't ended yet
-                String endDate = jShow.get("end_date").toString();
+                String endDate = jShow.get("end_date").toString().replace("\"", "");
                 if (endDate.equals("null")) {
                     show.setEndDate(null);
                 }
                 else {
-                    tempCal.setTime(sdf.parse(endDate));
+                    tempCal.setTime(sdfShow.parse(endDate));
                     show.setEndDate(tempCal);
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
-            show.setCountry(jShow.get("country").toString());
-            show.setRunTime(Integer.parseInt(jShow.get("runtime").toString()));
-            show.setNetwork(jShow.get("youtubeLink").toString());
-            show.setImagePath(jShow.get("image_path").toString());
-            show.setImageThumbnailPath(jShow.get("image_thumbnail_path").toString());
-            show.setRating(Double.parseDouble(jShow.get("rating").toString()));
-            show.setRatingCount(Integer.parseInt(jShow.get("rating_count").toString()));
+            show.setCountry(jShow.get("country").toString().replace("\"", ""));
+            show.setRunTime(Integer.parseInt(jShow.get("runtime").toString().replace("\"", "")));
+            show.setNetwork(jShow.get("youtube_link").toString().replace("\"", ""));
+            show.setImagePath(jShow.get("image_path").toString().replace("\"", ""));
+            show.setImageThumbnailPath(jShow.get("image_thumbnail_path").toString().replace("\"", ""));
+            show.setRating(Double.parseDouble(jShow.get("rating").toString().replace("\"", "")));
+            show.setRatingCount(Integer.parseInt(jShow.get("rating_count").toString().replace("\"", "")));
             show.setGenres(gson.fromJson(jShow.get("genres").toString(), String[].class));
             show.setPictures(gson.fromJson(jShow.get("pictures").toString(), String[].class));
 
@@ -136,7 +135,7 @@ public class EpisoDateAPIReader implements IAPIReader {
         episode.setName(jEpisode.get("name").toString());
         try {
             Calendar tempCal = Calendar.getInstance();
-            tempCal.setTime(sdf.parse(jEpisode.get("air_date").toString()));
+            tempCal.setTime(sdfEpisode.parse(jEpisode.get("air_date").toString().replace("\"", "")));
             episode.setAirDate(tempCal);
         } catch (ParseException e) {
             e.printStackTrace();
