@@ -82,10 +82,11 @@ public class ShowClientController {
 
         for (Show s : shows) {
             TreeItem<IShow> newItem = new TreeItem<> (s);
-            for (Episode e : s.getEpisodes()) {
-                newItem.getChildren().add(new TreeItem<>(e));
+            if (s.getEpisodes() != null) {
+                for (Episode e : s.getEpisodes()) {
+                    newItem.getChildren().add(new TreeItem<>(e));
+                }
             }
-
             rootItem.getChildren().add(newItem);
         }
         return rootItem;
