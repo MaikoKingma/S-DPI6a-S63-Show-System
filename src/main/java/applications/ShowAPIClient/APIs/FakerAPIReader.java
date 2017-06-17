@@ -48,8 +48,8 @@ public class FakerAPIReader implements IAPIReader {
                     null,
                     5,
                     1,
-                    new ArrayList<>(),
-                    new ArrayList<>()
+                    new String[0],
+                    new String[0]
             ));
         }};
     }

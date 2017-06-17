@@ -26,12 +26,12 @@ public class Show implements IShow{
     private String imageThumbnailPath;
     private double rating;
     private int ratingCount;
-    private List<String> genres;
-    private List<String> pictures;
+    private String[] genres;
+    private String[] pictures;
 
     public Show() { }
 
-    public Show(Calendar requestDate, Status status, Episode countdown, ArrayList<Episode> episodes, String name, String source, String description, String descriptionSource, Calendar startDate, Calendar endDate, String country, int runTime, String network, String youtubeLink, String imagePath, String imageThumbnailPath, double rating, int ratingCount, ArrayList<String> genres, ArrayList<String> pictures) {
+    public Show(Calendar requestDate, Status status, Episode countdown, ArrayList<Episode> episodes, String name, String source, String description, String descriptionSource, Calendar startDate, Calendar endDate, String country, int runTime, String network, String youtubeLink, String imagePath, String imageThumbnailPath, double rating, int ratingCount, String[] genres, String[] pictures) {
         this.requestDate = requestDate;
         this.status = status;
         this.countdown = countdown;
@@ -205,34 +205,20 @@ public class Show implements IShow{
         this.ratingCount = ratingCount;
     }
 
-    public List<String> getGenres() {
+    public String[] getGenres() {
         return genres;
     }
 
-    public void setGenres(ArrayList<String> genres) {
+    public void setGenres(String[] genres) {
         this.genres = genres;
     }
 
-    public void addGenre(String genre) {
-        if (genres == null) {
-            genres = new ArrayList<>();
-        }
-        genres.add(genre);
-    }
-
-    public List<String> getPictures() {
+    public String[] getPictures() {
         return pictures;
     }
 
-    public void setPictures(ArrayList<String> pictures) {
+    public void setPictures(String[] pictures) {
         this.pictures = pictures;
-    }
-
-    public void addPicture(String picturePath) {
-        if (pictures == null) {
-            pictures = new ArrayList<>();
-        }
-        pictures.add(picturePath);
     }
 
     public Integer getClientId() {
