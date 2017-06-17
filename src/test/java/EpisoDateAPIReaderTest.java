@@ -28,7 +28,7 @@ public class EpisoDateAPIReaderTest {
     }
 
     @Test
-    public void testJsonToShows() {
+    public void testJsonToShow() {
         String json = "{\n" +
                 "  \"tvShow\": {\n" +
                 "    \"id\": 29560,\n" +
@@ -769,8 +769,71 @@ public class EpisoDateAPIReaderTest {
                 "  }\n" +
                 "}";
         try {
-            //Object result = reader.jsonToShows(json);
+            //Object result = reader.jsonToShow(json);
             //Assert.assertNotNull(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail("Exception was thrown");
+        }
+    }
+
+    @Test
+    public void testJsonToShows() {
+        String json = "{\n" +
+                "  \"total\": \"1\",\n" +
+                "  \"page\": 1,\n" +
+                "  \"pages\": 1,\n" +
+                "  \"tv_shows\": [\n" +
+                "    {\n" +
+                "      \"id\": 29560,\n" +
+                "      \"name\": \"Arrow\",\n" +
+                "      \"permalink\": \"arrow\",\n" +
+                "      \"country\": \"US\",\n" +
+                "      \"network\": \"The CW\",\n" +
+                "      \"status\": \"Running\",\n" +
+                "      \"image_thumbnail_path\": \"https://static.episodate.com/images/tv-show/thumbnail/29560.jpg\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"id\": 50488,\n" +
+                "      \"name\": \"Arrow Affliction\",\n" +
+                "      \"permalink\": \"arrow-affliction\",\n" +
+                "      \"country\": \"US\",\n" +
+                "      \"network\": \"Sportsman Channel\",\n" +
+                "      \"status\": \"Running\",\n" +
+                "      \"image_thumbnail_path\": \"https://static.episodate.com/images/tv-show/thumbnail/50488.jpg\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"id\": 35594,\n" +
+                "      \"name\": \"Arrow Emblem – Hawk of the Grand Prix\",\n" +
+                "      \"permalink\": \"arrow-emblem-hawk-of-the-grand-prix\",\n" +
+                "      \"country\": \"JP\",\n" +
+                "      \"network\": \"Fuji TV\",\n" +
+                "      \"status\": \"Canceled/Ended\",\n" +
+                "      \"image_thumbnail_path\": \"https://static.episodate.com/images/tv-show/thumbnail/35594.jpg\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"id\": 49417,\n" +
+                "      \"name\": \"Red Arrow\",\n" +
+                "      \"permalink\": \"red-arrow\",\n" +
+                "      \"country\": \"US\",\n" +
+                "      \"network\": \"Outdoor Channel\",\n" +
+                "      \"status\": \"To Be Determined\",\n" +
+                "      \"image_thumbnail_path\": \"https://static.episodate.com/images/tv-show/thumbnail/49417.jpg\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"id\": 29089,\n" +
+                "      \"name\": \"The Black Arrow\",\n" +
+                "      \"permalink\": \"the-black-arrow\",\n" +
+                "      \"country\": \"UK\",\n" +
+                "      \"network\": \"BBC one\",\n" +
+                "      \"status\": \"Canceled/Ended\",\n" +
+                "      \"image_thumbnail_path\": \"https://static.episodate.com/images/tv-show/thumbnail/29089.jpg\"\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
+        try {
+//            Object result = reader.jsonToShows(json);
+//            Assert.assertNotNull(result);
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail("Exception was thrown");
