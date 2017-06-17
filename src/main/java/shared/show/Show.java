@@ -8,6 +8,7 @@ import java.util.*;
 public class Show implements IShow{
     private Integer clientId;
 
+    private Integer sourceId;
     private Calendar requestDate;
     private Status status;
     private Episode countdown;
@@ -221,6 +222,15 @@ public class Show implements IShow{
         this.pictures = pictures;
     }
 
+    public Integer getSourceId() {
+        return sourceId;
+    }
+
+    public void setSourceId(Integer sourceId) {
+        this.sourceId = sourceId;
+    }
+
+    //Id used by the user client to identify the show
     public Integer getClientId() {
         return clientId;
     }

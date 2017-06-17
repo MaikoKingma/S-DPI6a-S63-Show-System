@@ -74,6 +74,7 @@ public class EpisoDateAPIReader implements IAPIReader {
             Gson gson = new Gson();
 
             Show show = new Show();
+            show.setSourceId(Integer.parseInt(jShow.get("id").toString()));
             show.setRequestDate(Calendar.getInstance());
             show.setStatus(Status.valueOf(jShow.get("status").toString().replace("\"", "").toUpperCase()));
             show.setCountdown(jsonToEpisode(jShow.get("countdown").getAsJsonObject()));
@@ -112,7 +113,7 @@ public class EpisoDateAPIReader implements IAPIReader {
             }
 
             show.setCountry(jShow.get("country").toString().replace("\"", ""));
-            show.setRunTime(Integer.parseInt(jShow.get("runtime").toString().replace("\"", "")));
+            show.setRunTime(Integer.parseInt(jShow.get("runtime").toString()));
             show.setNetwork(jShow.get("youtube_link").toString().replace("\"", ""));
             show.setImagePath(jShow.get("image_path").toString().replace("\"", ""));
             show.setImageThumbnailPath(jShow.get("image_thumbnail_path").toString().replace("\"", ""));
