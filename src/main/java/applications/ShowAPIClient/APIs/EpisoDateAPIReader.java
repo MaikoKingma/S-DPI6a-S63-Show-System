@@ -119,7 +119,8 @@ public class EpisoDateAPIReader implements IAPIReader {
 
             show.setCountry(jShow.get("country").toString().replace("\"", ""));
             show.setRunTime(Integer.parseInt(jShow.get("runtime").toString()));
-            show.setNetwork(jShow.get("youtube_link").toString().replace("\"", ""));
+            show.setNetwork(jShow.get("network").toString().replace("\"", ""));
+            show.setYoutubeLink(jShow.get("youtube_link").toString().replace("\"", ""));
             show.setImagePath(jShow.get("image_path").toString().replace("\"", ""));
             show.setImageThumbnailPath(jShow.get("image_thumbnail_path").toString().replace("\"", ""));
             show.setRating(Double.parseDouble(jShow.get("rating").toString().replace("\"", "")));
