@@ -74,6 +74,7 @@ public class EpisoDateAPIReader implements IAPIReader {
             Gson gson = new Gson();
 
             Show show = new Show();
+            show.setSource("EpisoDate");
             show.setSourceId(Integer.parseInt(jShow.get("id").toString()));
             show.setRequestDate(Calendar.getInstance());
             show.setStatus(Status.valueOf(jShow.get("status").toString().replace("\"", "").toUpperCase()));
