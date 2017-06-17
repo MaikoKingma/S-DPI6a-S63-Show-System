@@ -1,6 +1,8 @@
 import applications.ShowAPIClient.APIs.EpisoDateAPIReader;
 import org.junit.*;
 
+import javax.jms.ObjectMessage;
+
 /**
  * Created by Maiko on 17-6-2017.
  */
@@ -17,6 +19,11 @@ public class EpisoDateAPIReaderTest {
 
     @Test
     public void testGetRequest() {
-        reader.getShow("Arrow");
+        try {
+            Object result = reader.getShow("Arrow");
+            Assert.assertNotNull(result);
+        } catch (Exception e) {
+            Assert.fail("Exception was thrown");
+        }
     }
 }
