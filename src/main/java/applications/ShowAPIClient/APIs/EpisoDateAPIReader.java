@@ -20,13 +20,19 @@ public class EpisoDateAPIReader implements IAPIReader {
     public final SimpleDateFormat sdfEpisode = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     public ArrayList<Show> getShow(String request) {
-        return jsonToShows(getRequest("https://www.episodate.com/api/show-details?q=" + request));
+        return new ArrayList<Show>() {{ add(jsonToShow(getRequest("https://www.episodate.com/api/show-details?q=" + request))); }};
     }
 
     public ArrayList<Show> searchShow(String request) {
-        getRequest("https://www.episodate.com/api/search?q=" + request + "&page=1");
-        //ToDo
-        return null;
+        int page = 1;
+        String json = getRequest("https://www.episodate.com/api/search?q=" + request + "&page=" + page);
+        int pages = Integer.parseInt(new JsonParser().parse(json).getAsJsonObject().get("pages").toString());
+        ArrayList<Show> shows = jsonToShows(json);
+        while (pages > page) {
+            page++;
+            shows.addAll(jsonToShows(getRequest("https://www.episodate.com/api/search?q=" + request + "&page=" + page)));
+        }
+        return shows;
     }
 
     /**
@@ -64,20 +70,18 @@ public class EpisoDateAPIReader implements IAPIReader {
     }
 
     /**
-     * Translates the json string to tvShow objects
+     * Translates the json string to tvShow object
      */
-    private ArrayList<Show> jsonToShows(String json) {
-        ArrayList<Show> shows = new ArrayList<>();
+    private Show jsonToShow(String json) {
+        Show show = new Show();
         try {
             //JsonObject with all show properties
             JsonObject jShow = new JsonParser().parse(json).getAsJsonObject().getAsJsonObject("tvShow");
-            Gson gson = new Gson();
 
-            Show show = new Show();
             show.setSource("EpisoDate");
             show.setSourceId(Integer.parseInt(jShow.get("id").toString()));
             show.setRequestDate(Calendar.getInstance());
-            show.setStatus(Status.valueOf(jShow.get("status").toString().replace("\"", "").toUpperCase()));
+            show.setStatus(stringToStatus(jShow.get("status").toString()));
             show.setCountdown(jsonToEpisode(jShow.get("countdown").getAsJsonObject()));
 
             ArrayList<Episode> episodes = new ArrayList<>();
@@ -120,14 +124,13 @@ public class EpisoDateAPIReader implements IAPIReader {
             show.setImageThumbnailPath(jShow.get("image_thumbnail_path").toString().replace("\"", ""));
             show.setRating(Double.parseDouble(jShow.get("rating").toString().replace("\"", "")));
             show.setRatingCount(Integer.parseInt(jShow.get("rating_count").toString().replace("\"", "")));
+            Gson gson = new Gson();
             show.setGenres(gson.fromJson(jShow.get("genres").toString(), String[].class));
             show.setPictures(gson.fromJson(jShow.get("pictures").toString(), String[].class));
-
-            shows.add(show);
         } catch (JsonParseException e) {
             e.printStackTrace();
         }
-        return shows;
+        return show;
     }
 
     private Episode jsonToEpisode(JsonObject jEpisode) {
@@ -143,5 +146,36 @@ public class EpisoDateAPIReader implements IAPIReader {
             e.printStackTrace();
         }
         return episode;
+    }
+
+    /**
+     * Translates the json string to tvShow objects
+     * Used when the user queses a show
+     */
+    private ArrayList<Show> jsonToShows(String json) {
+        ArrayList<Show> shows = new ArrayList<>();
+        try {
+            //JsonElement with all shows
+            Iterator<JsonElement> showIterator = new JsonParser().parse(json).getAsJsonObject().get("tv_shows").getAsJsonArray().iterator();
+            while (showIterator.hasNext()) {
+                JsonObject jShow = showIterator.next().getAsJsonObject();
+                Show show = new Show();
+                show.setSource("EpisoDate");
+                show.setSourceId(Integer.parseInt(jShow.get("id").toString()));
+                show.setName(jShow.get("name").toString().replace("\"", ""));
+                show.setCountry(jShow.get("country").toString().replace("\"", ""));
+                show.setNetwork(jShow.get("network").toString().replace("\"", ""));
+                show.setStatus(stringToStatus(jShow.get("status").toString()));
+                show.setImageThumbnailPath(jShow.get("image_thumbnail_path").toString().replace("\"", ""));
+                shows.add(show);
+            }
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        }
+        return shows;
+    }
+
+    private Status stringToStatus(String status) {
+        return Status.valueOf(status.replace("\"", "").replace("/", "_").replace(" ", "_").toUpperCase());
     }
 }
